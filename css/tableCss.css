@@ -9,3 +9,8 @@ form[editable-form] > div {margin: 10px 0;}
 .editable-controls input {
   width: 100%;
 }
+
+.the-table-longerword {
+	table-layout: fixed;
+	word-wrap: break-word;
+}

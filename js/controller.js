@@ -11,7 +11,6 @@ app.controller('Ctrl', function($scope, $filter, $http) {
 	{id: 3, eng: 'aaa', thai: 'System', desc: '12345', keyword: '666', chapter: '777'}
   ]; 
   /*
-   *
    * = function() {
   		return dbShowTableToJson;
    }
@@ -23,7 +22,6 @@ app.controller('Ctrl', function($scope, $filter, $http) {
       $scope.groups = data;
     });
   };
-   */
 
   $scope.showGroup = function(user) {
     if(user.group && $scope.groups.length) {
@@ -42,15 +40,18 @@ app.controller('Ctrl', function($scope, $filter, $http) {
     }
     return selected.length ? selected[0].text : 'Not set';
   };
+   */
 
   $scope.checkWord = function(data, id) {
-    if (id === 2 && data !== 'awesome') {
+    if (false) {
       return "Username 2 should be `awesome`";
+	  // check something at input 
     }
   };
 
   $scope.saveWord = function(data, id) {
     //$scope.user not updated yet
+	// updateDatabase
     angular.extend(data, {id: id});
     return $http.post('/saveWord', data);
   };
@@ -80,12 +81,9 @@ app.controller('Ctrl', function($scope, $filter, $http) {
 
 // --------------- mock $http requests ----------------------
 app.run(function($httpBackend) {
-  $httpBackend.whenGET('/groups').respond([
-    {id: 1, text: 'user'},
-    {id: 2, text: 'customer'},
-    {id: 3, text: 'vip'},
-    {id: 4, text: 'admin'}
-  ]);
+  //$httpBackend.whenGET('/groups').respond([
+    //{id: 4, text: 'admin'}
+  //]);
     
   $httpBackend.whenPOST(/\/saveWord/).respond(function(method, url, data) {
     data = angular.fromJson(data);
