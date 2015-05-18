@@ -15,14 +15,15 @@ app.controller('Ctrl', function($scope, $filter, $http) {
    * = function() {
   		return dbShowTableToJson;
    }
+   //*end
    *
-   */
   $scope.groups = [];
   $scope.loadGroups = function() {
     return $scope.groups.length ? null : $http.get('/groups').success(function(data) {
       $scope.groups = data;
     });
   };
+   */
 
   $scope.showGroup = function(user) {
     if(user.group && $scope.groups.length) {
