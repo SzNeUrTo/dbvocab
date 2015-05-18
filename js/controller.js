@@ -5,19 +5,18 @@ app.run(function(editableOptions) {
 });
 
 app.controller('Ctrl', function($scope, $filter, $http) {
- $scope.users = [
-    {id: 1, name: 'awesome user1', status: 2, group: 4, groupName: 'admin'},
-    {id: 2, name: 'awesome user2', status: undefined, group: 3, groupName: 'vip'},
-    {id: 3, name: 'awesome user3', status: 2, group: null}
+ $scope.words = [
+	{id: 1, eng: 'aaa', thai: 'System', desc: '12345', keyword: '666', chapter: '777'},
+	{id: 2, eng: 'aaa', thai: 'Systemf', desc: '12345', keyword: '666', chapter: '777'},
+	{id: 3, eng: 'aaa', thai: 'System', desc: '12345', keyword: '666', chapter: '777'}
   ]; 
-
-  $scope.statuses = [
-    {value: 1, text: 'status1'},
-    {value: 2, text: 'status2'},
-    {value: 3, text: 'status3'},
-    {value: 4, text: 'status4'}
-  ]; 
-
+  /*
+   *
+   * = function() {
+  		return dbShowTableToJson;
+   }
+   *
+   */
   $scope.groups = [];
   $scope.loadGroups = function() {
     return $scope.groups.length ? null : $http.get('/groups').success(function(data) {
@@ -34,6 +33,7 @@ app.controller('Ctrl', function($scope, $filter, $http) {
     }
   };
 
+
   $scope.showStatus = function(user) {
     var selected = [];
     if(user.status) {
@@ -42,32 +42,38 @@ app.controller('Ctrl', function($scope, $filter, $http) {
     return selected.length ? selected[0].text : 'Not set';
   };
 
-  $scope.checkName = function(data, id) {
+  $scope.checkWord = function(data, id) {
     if (id === 2 && data !== 'awesome') {
       return "Username 2 should be `awesome`";
     }
   };
 
-  $scope.saveUser = function(data, id) {
+  $scope.saveWord = function(data, id) {
     //$scope.user not updated yet
     angular.extend(data, {id: id});
-    return $http.post('/saveUser', data);
+    return $http.post('/saveWord', data);
   };
 
   // remove user
-  $scope.removeUser = function(index) {
-    $scope.users.splice(index, 1);
+  $scope.removeWord = function(index) {
+    $scope.words.splice(index, 1);
+	// remove from databsae
+	// reload database again
   };
 
   // add user
-  $scope.addUser = function() {
+  $scope.addWord = function() {
     $scope.inserted = {
-      id: $scope.users.length+1,
-      name: '',
-      status: null,
-      group: null 
+      id: $scope.words.length+1,
+      eng: '',
+      thai: '',
+      desc: '',
+      keyword: '',
+      chapter: ''
     };
-    $scope.users.push($scope.inserted);
+    $scope.words.push($scope.inserted);
+	// add To Database
+	// load table again after
   };
 });
 
@@ -80,7 +86,7 @@ app.run(function($httpBackend) {
     {id: 4, text: 'admin'}
   ]);
     
-  $httpBackend.whenPOST(/\/saveUser/).respond(function(method, url, data) {
+  $httpBackend.whenPOST(/\/saveWord/).respond(function(method, url, data) {
     data = angular.fromJson(data);
     return [200, {status: 'ok'}];
   });

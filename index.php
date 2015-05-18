@@ -42,44 +42,45 @@ try {
       <td style="width:15%">Chapter</td>
       <td style="width:15%">Edit</td>
     </tr>
-    <tr ng-repeat="user in users">
+    <tr ng-repeat="word in words">
+      <td>
+        <span editable-text="word.eng" e-name="eng" e-form="rowform" onbeforesave="checkWord($data, word.id)" e-required>
+          {{ word.eng || 'empty' }}
+        </span>
+      </td>
+
+      <td>
+        <span editable-text="word.thai" e-name="thai" e-form="rowform" onbeforesave="checkWord($data, word.id)" e-required>
+          {{ word.thai || 'empty' }}
+        </span>
+      </td>
+
       <td>
         <!-- editable username (text with validation) -->
-        <span editable-text="user.name" e-name="name" e-form="rowform" onbeforesave="checkName($data, user.id)" e-required>
-          {{ user.name || 'empty' }}
-        </span>
-      </td>
-      <td>
-        <!-- editable status (select-local) -->
-        <span editable-select="user.status" e-name="status" e-form="rowform" e-ng-options="s.value as s.text for s in statuses">
-          {{ showStatus(user) }}
+        <span editable-text="word.desc" e-name="desc" e-form="rowform" onbeforesave="checkWord($data, word.id)" e-required>
+          {{ word.desc || 'empty' }}
         </span>
       </td>
 
+
       <td>
-        <!-- editable group (select-remote) -->
-        <span editable-select="user.group" e-name="group" onshow="loadGroups()" e-form="rowform" e-ng-options="g.id as g.text for g in groups">
-          {{ showGroup(user) }}
+        <!-- editable username (text with validation) -->
+        <span editable-text="word.keyword" e-name="keyword" e-form="rowform" onbeforesave="checkWord($data, word.id)" e-required>
+          {{ word.keyword || 'empty' }}
         </span>
       </td>
 
-      <td>
-        <!-- editable group (select-remote) -->
-        <span editable-select="user.group" e-name="group" onshow="loadGroups()" e-form="rowform" e-ng-options="g.id as g.text for g in groups">
-          {{ showGroup(user) }}
-        </span>
-      </td>
 
       <td>
-        <!-- editable group (select-remote) -->
-        <span editable-select="user.group" e-name="group" onshow="loadGroups()" e-form="rowform" e-ng-options="g.id as g.text for g in groups">
-          {{ showGroup(user) }}
+        <!-- editable username (text with validation) -->
+        <span editable-text="word.chapter" e-name="chapter" e-form="rowform" onbeforesave="checkWord($data, word.id)" e-required>
+          {{ word.chapter || 'empty' }}
         </span>
       </td>
 
       <td style="white-space: nowrap">
         <!-- form -->
-        <form editable-form name="rowform" onbeforesave="saveUser($data, user.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == user">
+        <form editable-form name="rowform" onbeforesave="saveWord($data, word.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == word">
           <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
             save
           </button>
@@ -89,13 +90,13 @@ try {
         </form>
         <div class="buttons" ng-show="!rowform.$visible">
           <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
-          <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
+          <button class="btn btn-danger" ng-click="removeWord($index)">del</button>
         </div>  
       </td>
     </tr>
   </table>
 
-  <button class="btn btn-default" ng-click="addUser()">Add row</button>
+  <button class="btn btn-success btn-block" ng-click="addWord()">Add Word</button>
 </div>
 </body>
 </html>
