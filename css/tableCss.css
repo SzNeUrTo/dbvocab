@@ -14,3 +14,7 @@ form[editable-form] > div {margin: 10px 0;}
 	table-layout: fixed;
 	word-wrap: break-word;
 }
+
+html,body {height:100%;}
+.special,.special .jumbotron {height:97%;}
+
